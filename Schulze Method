@@ -1,0 +1,116 @@
+To compute the votes for an ordinal voting system, you would need to use a ranked voting algorithm that takes into account the ranking of each candidate by each voter.
+One common algorithm for this type of voting system is the Schulze method, which is a Condorcet method that can handle ranked ballots. The algorithm works by computing the strength of pairwise preferences between each pair of candidates based on the number of voters who prefer one candidate over the other.
+Here is an example of how the Schulze method could be implemented in a smart contract:
+
+contract SchulzeVoting {
+  struct Vote {
+    uint[] ranking;
+  }
+
+  mapping(address => Vote) public votes;
+
+  function submitVote(uint[] memory ranking) public {
+    require(ranking.length == numCandidates, "Invalid ranking");
+
+    Vote storage vote = votes[msg.sender];
+    vote.ranking = ranking;
+  }
+
+  function computeWinner() public view returns (uint[] memory) {
+    uint[][] memory pairwiseStrengths = computePairwiseStrengths();
+
+    uint[][] memory strongestPaths = computeStrongestPaths(pairwiseStrengths);
+
+    uint[] memory winner = computeWinnerFromPaths(strongestPaths);
+
+    return winner;
+  }
+
+  function computePairwiseStrengths() internal view returns (uint[][] memory) {
+    uint[][] memory pairwiseStrengths = new uint[][](numCandidates);
+
+    for (uint i = 0; i < numCandidates; i++) {
+      for (uint j = 0; j < numCandidates; j++) {
+        if (i == j) {
+          continue;
+        }
+
+        uint strength = 0;
+
+        for (uint k = 0; k < numVoters; k++) {
+          uint prefI = getPrefIndex(i, k);
+          uint prefJ = getPrefIndex(j, k);
+
+          if (prefI < prefJ) {
+            strength += 1;
+          }
+        }
+
+        pairwiseStrengths[i][j] = strength;
+      }
+    }
+
+    return pairwiseStrengths;
+  }
+
+  function computeStrongestPaths(uint[][] memory pairwiseStrengths) internal pure returns (uint[][] memory) {
+    uint numPaths = pairwiseStrengths.length;
+    uint[][] memory strongestPaths = new uint[][](numPaths);
+
+    for (uint i = 0; i < numPaths; i++) {
+      strongestPaths[i] = pairwiseStrengths[i];
+    }
+
+    for (uint k = 0; k < numPaths; k++) {
+      for (uint i = 0; i < numPaths; i++) {
+        for (uint j = 0; j < numPaths; j++) {
+          if (strongestPaths[i][j] < strongestPaths[i][k] + strongestPaths[k][j]) {
+            strongestPaths[i][j] = strongestPaths[i][k] + strongestPaths[k][j];
+          }
+        }
+      }
+    }
+
+    return strongestPaths;
+  }
+
+  function computeWinnerFromPaths(uint[][] memory strongestPaths) internal pure returns (uint[] memory) {
+    uint[] memory winner = new uint[](numCandidates);
+    uint maxScore = 0;
+
+    for (uint i = 0; i < numCandidates; i++) {
+      for (uint j = 0; j < numCandidates; j++) {
+        if (i == j) {
+          continue;
+        }
+
+        uint score = strongestPaths[i][j];
+
+        if (score > maxScore) {
+          maxScore = score;
+          winner[0] = i;
+        } else if (score == maxScore) {
+          winner.push(i);
+        }
+      }
+    }
+
+    return winner;
+  }
+
+  function getPrefIndex(uint candidateIndex, uint voter
+
+*******
+-------
+
+Note: 
+
+basic steps:
+Initialize an empty stack.
+Connect to the Bitcoin network and select the relevant blockchain.
+Identify the relevant events or transactions that you want to read from the blockchain.
+Starting from the most recent block in the blockchain, iterate through each block in reverse order until you reach the block that contains the event or transaction you want to read.
+For each block, iterate through the transactions in reverse order, and push each transaction onto the stack.
+Once you reach the block that contains the event or transaction you want to read, pop each transaction from the stack and check whether it contains the relevant data or event.
+If a transaction contains the relevant data or event, process the data and stop reading the blockchain.
+Here, the stack is being used to keep track of the transactions in the blockchain, starting from the most recent and working backwards in a last-in-first-out (LIFO) order. This approach can help ensure that you are reading the most up-to-date information from the blockchain, and can help you quickly find the relevant data or event by working backwards from the most recent transactions.
