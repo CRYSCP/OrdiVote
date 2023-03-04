@@ -1,6 +1,6 @@
 # **OrdiVote**
 
-                                  OrdiVote: Decentralized Community Decision-Making System
+                             OrdiVote: Decentralized Community Decision-Making System
 
 **Description**
 
