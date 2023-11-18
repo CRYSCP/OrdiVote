@@ -1,5 +1,5 @@
 # **OrdiVote**
-
+## Note version is outdated: Currently working on implementing with Stacks 2.1
                              OrdiVote: Decentralized Community Decision-Making System
 
 **Description**
