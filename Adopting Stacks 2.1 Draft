@@ -3,24 +3,24 @@ Note: As an alternative This could be similar to snapshot on evm, therefore func
 
 ##In a nutshell
 Smart Contract Design for Voting Mechanism - OrdiVote Integration with Stacks 2.1
-Part 1: Initial Setup and Voter Registration
 
+Part 1: Initial Setup and Voter Registration
 Define states (Open, Voting, Closed) and initialize vote tally, voter registration, and proposal details variables.
 Develop registerVoter function for user registration.
-Part 2: Proposal Submission Function
 
+Part 2: Proposal Submission Function
 Enable users to submit proposals.
 Implement submitProposal function with validation checks.
-Part 3: Voting Function
 
+Part 3: Voting Function
 Create castVote function for registered voters.
 Ensure vote integrity and prevent duplicate voting.
-Part 4: Vote Tallying and Result Declaration
 
+Part 4: Vote Tallying and Result Declaration
 Develop tallyVotes function.
 Declare results based on voting criteria.
-Part 5: Integration of Continuous Stacking
 
+Part 5: Integration of Continuous Stacking
 Leverage Stacks 2.1's continuous stacking for voter rewards.
 Distribute rewards post-election based on participation.
 
